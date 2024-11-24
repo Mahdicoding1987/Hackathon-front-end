@@ -1,15 +1,28 @@
-import { AuthedUserContext } from '../../App';
-import { useContext } from 'react';
+import { AuthedUserContext } from "../../App";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import "./Dashboard.css";
 
-const Dashboard = ({}) => {
+const Dashboard = (props) => {
   const user = useContext(AuthedUserContext);
   return (
-    <main>
+    <main className="dashboard-container">
       <h1>Welcome, {user.username}</h1>
-      <p>
-        This is the dashboard page where you, and only you, can see a dashboard
-        of all of your things.
-      </p>
+      <h3>This is the dashboard page where you, Where you can buy the below products.</h3>
+
+      {props.products.map((product) => (
+        <Link key={product._id} to={`/${product._id}`}>
+          <header className="product-header">
+            <div>
+              <ul>
+                <li>{product.title}</li>
+                <li>{product.description}</li>
+                <li>{product.price}</li>
+              </ul>
+            </div>
+          </header>
+        </Link>
+      ))}
     </main>
   );
 };
